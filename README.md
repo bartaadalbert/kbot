@@ -16,8 +16,10 @@ To use the KBot Telegram bot, you will need to follow these steps:
 Install go, go get github.com/gopkg.in/telebot.v3 or find the binary kbot in the repository and start ./kbot start it also depends on TG_BOT_TOKEN do not foget to setup it yourself
 
 1.Clone this repository to your local machine.
+cd kbot 
 
-2.Set the TG_BOT_TOKEN environment variable to the token of your Telegram bot. You can obtain a token by creating a new bot using the BotFather bot in Telegram. read -s TG_BOT_TOKEN, export TG_BOT_TOKEN
+2.Set the TG_BOT_TOKEN environment variable to the token of your Telegram bot. You can obtain a token by creating a new bot using the BotFather bot in Telegram. 
+read -s TG_BOT_TOKEN(ctr shift v, ctr v, command v), export TG_BOT_TOKEN
 
 3.Run the following command to build the binary:
 
