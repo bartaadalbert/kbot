@@ -44,6 +44,7 @@ to quickly create a Cobra application.`,
 		}
 
 		kbot.Handle(telebot.OnText, func(m telebot.Context) error {
+
 			log.Printf("Message payload and text %s: %s", m.Message().Payload, m.Text())
 
 			// payload := m.Message().Payload
@@ -133,16 +134,6 @@ to quickly create a Cobra application.`,
 		})
 		kbot.Start()
 	},
-}
-
-// function to check if my string array contains this  string slic
-func contains(s []string, str string) bool {
-	for _, v := range s {
-		if v == str {
-			return true
-		}
-	}
-	return false
 }
 
 func init() {
