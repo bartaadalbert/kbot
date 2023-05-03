@@ -98,7 +98,7 @@ to quickly create a Cobra application.`,
 							loc = time.UTC
 						}
 						// Current time
-						now := time.Now().In(loc).Format("2002-02-02 22:22:22")
+						now := time.Now().In(loc).Format("2006-01-02 15:04:05")
 						// Send the current time
 						return m.Send(fmt.Sprintf(validCommands["time"], now))
 					}
