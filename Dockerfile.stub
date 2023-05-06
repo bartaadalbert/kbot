@@ -1,0 +1,18 @@
+# Dockerfile
+ARG FROM_IMAGE
+
+FROM ${FROM_IMAGE} AS builder
+
+ARG OS_TARGET
+
+WORKDIR /go/src/app
+
+COPY . .
+
+RUN make ${OS_TARGET}
+
+FROM scratch
+
+WORKDIR /
+
+ARG APP_NAME

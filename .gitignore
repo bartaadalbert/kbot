@@ -1,0 +1,8 @@
+# .gitignore
+message.json
+# kbot
+#Dockerfile.stub
+kbot-linux*
+kbot-darwin*
+kbot-windows*
+dockerbuild.log
