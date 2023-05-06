@@ -130,7 +130,7 @@ preconfig: ## Make Dockerfile from template it can be more powerful in future
         printf $(_DANGER) "$(STATIC_DOCKERFILE) does not exist"; \
     fi
 
-docker%:## Build the Docker image for the OS type
+docker%:## Build the Docker image for the OS type, use like dockerlinux dockermacos dockerwindows
 	$(eval OS=$*)
 	$(eval OS=$(call to_lowercase,$(OS)))
 	$(eval ARCH_SHORT_NAME=amd)
@@ -146,7 +146,7 @@ docker%:## Build the Docker image for the OS type
 	@make push
 
 
-dockerarm%:## Build the Docker image for the OS type
+dockerarm%:## Build the Docker image for the OS type, use like dockerarmlinux dockerarmmacos
 	$(eval OS=$*)
 	$(eval OS=$(call to_lowercase,$(OS)))
 	$(eval ARCH_SHORT_NAME=arm)
