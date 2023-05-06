@@ -39,7 +39,7 @@ to quickly create a Cobra application.`,
 			Poller: &telebot.LongPoller{Timeout: 10 * time.Second},
 		})
 		if err != nil {
-			log.Fatal("Please check your TG_BOT_TOKEN env variable %s", err)
+			log.Fatalf("Please check your TG_BOT_TOKEN env variable %s", err)
 			return
 		}
 
