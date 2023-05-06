@@ -130,6 +130,18 @@ preconfig: ## Make Dockerfile from template it can be more powerful in future
         printf $(_DANGER) "$(STATIC_DOCKERFILE) does not exist"; \
     fi
 
+image: ## Default image maker for linux or you need call with makefile variables!!!
+	@docker build \
+	--no-cache \
+	-t $(REGISTRY)/$(APP)-$(OS)$(ARCH_SHORT_NAME):$(VERSION) \
+	-f $(DOCKERFILE) \
+	--build-arg APP_NAME=$(APP)-$(OS)$(ARCH_SHORT_NAME) \
+	--build-arg OS_TARGET=$(ARCH_SHORT_NAME)$(OS) \
+	--build-arg FROM_IMAGE=$(IMAGE_BUILDER) \
+	. > dockerbuild.log 2>&1;
+	@cat dockerbuild.log
+	@make push;
+
 image%:## Build the Docker image for the OS type, use like imagelinux imagemacos imagewindows
 	$(eval OS=$*)
 	$(eval OS=$(call to_lowercase,$(OS)))
