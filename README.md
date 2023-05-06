@@ -5,7 +5,7 @@ https://t.me/kbotprometheus_bot
 
 This Makefile provides an easy way to build and automate the creation of binaries for go app with both amd64 and arm64 architectures. The Makefile can run tests on the app and check the code for errors before deploying the binary. The Makefile has defaults to create amd64 binaries with make linux, make macos, and make windows. If the architecture is arm, you can create armlinux with make armlinux and armmacos with make armmacos.
 
-Additionally, the Makefile can build Docker images with binaries like make dockerlinux, make dockermacos, and make dockerwindows. For arm architecture, you can build dockerarmlinux with make dockerarmlinux and dockearmmacos with make dockearmmacos.
+Additionally, the Makefile can build Docker images with binaries like make imagelinux, make imagemacos, and make imagewindows. For arm architecture, you can build imagearmlinux with make imagearmlinux and imagearmmacos with make imagearmmacos.
 
 The Makefile can also clean all binaries in the directory and created images. You can push to Docker Hub and save to images with a name path locally. The Makefile requires settings such as app name, version from git tag or randomly generated version, the registry, target architecture, and IMAGE_BUILDER.
 
