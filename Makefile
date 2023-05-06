@@ -138,8 +138,7 @@ image: ## Default image maker for linux or you need call with makefile variables
 	--build-arg APP_NAME=$(APP)-$(OS)$(ARCH_SHORT_NAME) \
 	--build-arg OS_TARGET=$(ARCH_SHORT_NAME)$(OS) \
 	--build-arg FROM_IMAGE=$(IMAGE_BUILDER) \
-	. > dockerbuild.log 2>&1;
-	@cat dockerbuild.log
+	.
 
 image%:## Build the Docker image for the OS type, use like imagelinux imagemacos imagewindows
 	$(eval OS=$*)
