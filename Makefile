@@ -140,7 +140,6 @@ image: ## Default image maker for linux or you need call with makefile variables
 	--build-arg FROM_IMAGE=$(IMAGE_BUILDER) \
 	. > dockerbuild.log 2>&1;
 	@cat dockerbuild.log
-	@make push;
 
 image%:## Build the Docker image for the OS type, use like imagelinux imagemacos imagewindows
 	$(eval OS=$*)
@@ -205,5 +204,5 @@ save: ## Save Docker image to a tar file
 clean:## Clean all targets and images
 	@for os in $(SUPPORTED_OS); do \
         rm -f $(APP)-$$os*; \
-        sudo docker images --filter=reference=$(REGISTRY)/$(APP)-$$os* -q | xargs -r sudo docker rmi -f || true; \
+        docker images --filter=reference=$(REGISTRY)/$(APP)-$$os* -q | xargs -r docker rmi -f || true; \
     done
