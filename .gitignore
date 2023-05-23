@@ -6,3 +6,4 @@ kbot-linux*
 kbot-darwin*
 kbot-windows*
 dockerbuild.log
+*.tgz

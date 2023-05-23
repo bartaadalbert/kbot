@@ -10,7 +10,7 @@ image:
   arch: amd64
 
 secret:
-  envName: TG_BOT_TOKEN
+  envName: TELE_TOKEN
   tokenName: kbot
   tokenKey: telegramToken
   tokenKeyValue: 12345678:AAEAKIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
