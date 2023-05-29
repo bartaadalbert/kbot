@@ -77,8 +77,7 @@ jobs:
         
       - name: Modify values.yaml
         run: |
-          #sed -i 's/{{ .Values.secret.tokenKeyValue }}/${{ secrets.TELE_TOKEN }}/g' helmkbot/values.yaml
-          yq e -i ".image.tag = ${{ env.VERSION }}" helmkbot/values.yaml
+          yq e -i ".image.tag = \"${{ env.VERSION }}\"" helmkbot/values.yaml
 
       #GIT TOKEN NEW VALUE RW
       - run: |
