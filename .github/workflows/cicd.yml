@@ -28,11 +28,11 @@ jobs:
 
       - name: Extract repository name
         id: extract_repo
-        run: echo "::set-output name=repo_name::$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)"
+        run: echo "APP=$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)" >> $GITHUB_ENV
       
       - name: BuildPush
         env: 
-          APP: ${{ steps.extract_repo.outputs.repo_name }}
+          APP: ${{ env.APP }}
           REGISTRY: ghcr.io/ ${{ github.actor }}
         run: make image push
   
@@ -63,7 +63,7 @@ jobs:
           NEW_VERSION="${MAJOR_VERSION}.$((MINOR_VERSION + 1)).${PATCH_VERSION}"
           
           # Update values.yaml with new version
-          yq e -i ".chartVersion = \"$NEW_VERSION\"" helmkbot/values.yaml
+          yq e -i ".chartVersion = \"$NEW_VERSION\"" helmkbot/kvalues.yaml
         
       - name: Modify values.yaml
         run: |
