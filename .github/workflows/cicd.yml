@@ -83,7 +83,7 @@ jobs:
       #GIT TOKEN NEW VALUE
       - run: |
           git config user.name github-actions
-          git config usere.mail github-actions@github.cc
+          git config usere.email github-actions@github.com
           git commit -am "update version $VERSION"
           git push
 
