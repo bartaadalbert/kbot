@@ -80,10 +80,10 @@ jobs:
           #sed -i 's/{{ .Values.secret.tokenKeyValue }}/${{ secrets.TELE_TOKEN }}/g' helmkbot/values.yaml
           sed -i 's/{{ .Values.image.tag }}/${VERSION}/g' helmkbot/values.yaml
              
-
+      #GIT
       - run: |
           git config user.name github-actions
           git config usere.mail github-actions@github.cc
           git commit -am "update version $VERSION"
           git push
-          
+
