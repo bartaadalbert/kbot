@@ -17,7 +17,7 @@ We use GitHub Actions for our CI/CD pipeline. Whenever a commit is made to the `
 
 You can find the GitHub Actions workflow configuration file in `.github/workflows/cicd.yml`.
 
-![CI/CD Workflow](.demo/CICD_pipeline.png)
+![CI/CD Workflow](./demo/CICD_pipeline.png)
 
 
 you can interact with  the bot by clicking the link below

@@ -116,7 +116,7 @@ amd%:## AMD64 architecture set for os type, use like amdlinux amdmacos amdwindow
 	$(eval OS=$(call to_lowercase,$(OS)))
 	$(eval TARGETARCH=amd64)
 	$(eval ARCH_SHORT_NAME=amd)
-	$(eval APP_FULL_NAME=$(APP)-$(OS)$(ARCH_SHORT_NAME))
+	$(eval APP_FULL_NAME=$(APP))
 	@printf $(_SUCCESS) "Successfully start build amd64 $(OS)"
 	@make $(OS) TARGETARCH=$(TARGETARCH) ARCH_SHORT_NAME=$(ARCH_SHORT_NAME)
 
@@ -135,7 +135,7 @@ image: ## Default image maker for linux or you need call with makefile variables
 	--no-cache \
 	-t $(REGISTRY)/$(APP):$(VERSION)-$(OS)$(ARCH_SHORT_NAME) \
 	-f $(DOCKERFILE) \
-	--build-arg APP_NAME=$(APP)-$(OS)$(ARCH_SHORT_NAME) \
+	--build-arg APP_NAME=$(APP) \
 	--build-arg OS_TARGET=$(ARCH_SHORT_NAME)$(OS) \
 	--build-arg FROM_IMAGE=$(IMAGE_BUILDER) \
 	.
