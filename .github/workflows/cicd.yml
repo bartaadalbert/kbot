@@ -46,13 +46,18 @@ jobs:
     needs: ci
     runs-on: ubuntu-latest
     steps:
-      - name: Install jq and yq an ssh
-        run: sudo apt-get update && sudo apt-get install -y jq && sudo snap install -y yq && sudo apt-get install -y ssh
-
+      - name: Install jq and ssh
+        run: sudo apt-get update && sudo apt-get install -y jq && sudo apt-get install -y ssh
+      - name: Install yq
+        run: |
+          sudo add-apt-repository ppa:rmescandon/yq
+          sudo apt update
+          sudo apt install yq -y
+          
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - run: echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> GITHUB_ENV
+      - run: echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
  
       - name: Increment version
         run: |
