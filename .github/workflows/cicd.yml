@@ -53,7 +53,7 @@ jobs:
           sudo add-apt-repository ppa:rmescandon/yq
           sudo apt update
           sudo apt install yq -y
-          
+
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -73,7 +73,7 @@ jobs:
           NEW_VERSION="${MAJOR_VERSION}.$((MINOR_VERSION + 1)).${PATCH_VERSION}"
           
           # Update values.yaml with new version
-          yq e -i ".chartVersion = \"$NEW_VERSION\"" helmkbot/kvalues.yaml
+          yq e -i ".chartVersion = \"$NEW_VERSION\"" helmkbot/values.yaml
         
       - name: Modify values.yaml
         run: |
