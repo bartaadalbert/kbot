@@ -133,7 +133,7 @@ preconfig: ## Make Dockerfile from template it can be more powerful in future
 image: ## Default image maker for linux or you need call with makefile variables!!!
 	@docker build \
 	--no-cache \
-	-t $(REGISTRY)/$(APP):$(VERSION)-$(OS)$(ARCH_SHORT_NAME) \
+	-t $(REGISTRY)/$(APP):$(VERSION)-$(OS)-$(TARGETARCH) \
 	-f $(DOCKERFILE) \
 	--build-arg APP_NAME=$(APP) \
 	--build-arg OS_TARGET=$(ARCH_SHORT_NAME)$(OS) \
@@ -175,8 +175,8 @@ imagearm%:## Build the Docker image for the OS type, use like imagearmlinux imag
 	@make push
 
 push: ##Push the Docker image for the specified OS type
-	@printf $(_INFO) "Start pushing your docker image with registry and nameversion: $(REGISTRY)/$(APP_FULL_NAME):$(VERSION) !\n"
-	@docker push $(REGISTRY)/$(APP):$(VERSION)-$(OS)$(ARCH_SHORT_NAME) 
+	@printf $(_INFO) "Start pushing your docker image with registry and nameversion: $(REGISTRY)/$(APP):$(VERSION)-$(OS)-$(TARGETARCH)  !\n"
+	@docker push $(REGISTRY)/$(APP):$(VERSION)-$(OS)-$(TARGETARCH) 
 	@printf $(_SUCCESS) "Your image was Successfully pushed!\n"
 
 push_check:## Push the Docker image for the specified OS type with user check
