@@ -31,10 +31,7 @@ jobs:
         run: echo "APP=$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)" >> $GITHUB_ENV
       
       - name: BuildPush
-        env: 
-          APP: ${{ env.APP }}
-          REGISTRY: ghcr.io/ ${{ github.actor }}
-        run: make image push
+        run: make image push APP=${{ env.APP }} REGISTRY=ghcr.io/${{ github.actor }}
   
   cd:
     name: CD
