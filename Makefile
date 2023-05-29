@@ -133,7 +133,7 @@ preconfig: ## Make Dockerfile from template it can be more powerful in future
 image: ## Default image maker for linux or you need call with makefile variables!!!
 	@docker build \
 	--no-cache \
-	-t $(REGISTRY)/$(APP)-$(OS)$(ARCH_SHORT_NAME):$(VERSION) \
+	-t $(REGISTRY)/$(APP):$(VERSION)-$(OS)$(ARCH_SHORT_NAME) \
 	-f $(DOCKERFILE) \
 	--build-arg APP_NAME=$(APP)-$(OS)$(ARCH_SHORT_NAME) \
 	--build-arg OS_TARGET=$(ARCH_SHORT_NAME)$(OS) \

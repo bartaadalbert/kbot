@@ -1,5 +1,25 @@
 KBot - A Simple Telegram Bot
 
+## Continuous Integration/Continuous Deployment (CI/CD)
+
+We use GitHub Actions for our CI/CD pipeline. Whenever a commit is made to the `develop` branch, the pipeline is triggered. The steps include:
+
+1. Checkout the repository.
+2. Install Go.
+3. Login to the GitHub Container Registry.
+4. Extract the repository name.
+5. Build and push the image.
+6. Install `jq` and `yq`, and perform SSH.
+7. Checkout the repository.
+8. Increment the version.
+9. Modify `values.yaml`.
+10. Commit and push the changes.
+
+You can find the GitHub Actions workflow configuration file in `.github/workflows/cicd.yml`.
+
+![CI/CD Workflow](.demo/CICD_pipeline.png)
+
+
 you can interact with  the bot by clicking the link below
 https://t.me/kbotprometheus_bot
 
