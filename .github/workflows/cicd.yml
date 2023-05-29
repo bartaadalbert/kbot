@@ -77,13 +77,12 @@ jobs:
         
       - name: Modify values.yaml
         run: |
-          sed -i 's/{{ .Values.secret.tokenKeyValue }}/${{ secrets.TELE_TOKEN }}/g' helmkbot/values.yaml
+          # sed -i 's/{{ .Values.secret.tokenKeyValue }}/${{ secrets.TELE_TOKEN }}/g' helmkbot/values.yaml
           sed -i 's/{{ .Values.image.tag }}/${VERSION}/g' helmkbot/values.yaml
              
 
       - run: |
-          git config user.name github-action-bartaadalbert
-          git config usere.mail adalbertbarta@gmail.com
+          git add .
           git commit -s -m "update version $VERSION"
           git push
           git tag $VERSION
