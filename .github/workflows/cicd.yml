@@ -31,6 +31,7 @@ jobs:
         id: extract_repo
         run: echo "APP=$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)" >> $GITHUB_ENV
       
+        #GET THE VERSION
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
