@@ -1,0 +1,80 @@
+name: CICD-KBOT
+
+on:
+  push:
+    branches:
+      # - main
+      - develop
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18.1
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.TOKEN_GITHUB }}
+
+      - name: Extract repository name
+        id: extract_repo
+        run: echo "::set-output name=repo_name::$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)"
+      
+      - name: BuildPush
+        env: 
+          APP: ${{ steps.extract_repo.outputs.repo_name }}
+          REGISTRY: ghcr.io/ ${{ github.actor }}
+        run: make image push
+  
+  cd:
+    name: CD
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install jq and yq an ssh
+        run: sudo apt-get update && sudo apt-get install -y jq && sudo snap install -y yq && sudo apt-get install -y ssh
+
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> GITHUB_ENV
+ 
+      - name: Increment version
+        run: |
+          # Read version from helmkbot/values.yaml
+          CVERSION=$(yq e '.chartVersion' helmkbot/values.yaml)
+          
+          # Split into major, minor and patch
+          MAJOR_VERSION=$(echo $CVERSION | cut -d. -f1)
+          MINOR_VERSION=$(echo $CVERSION | cut -d. -f2)
+          PATCH_VERSION=$(echo $CVERSION | cut -d. -f3)
+          
+          # Increment minor version
+          NEW_VERSION="${MAJOR_VERSION}.$((MINOR_VERSION + 1)).${PATCH_VERSION}"
+          
+          # Update values.yaml with new version
+          yq e -i ".chartVersion = \"$NEW_VERSION\"" helmkbot/values.yaml
+        
+      - name: Modify values.yaml
+        run: |
+          sed -i 's/{{ .Values.secret.tokenKeyValue }}/${{ secrets.TELE_TOKEN }}/g' helmkbot/values.yaml
+          sed -i 's/{{ .Values.image.tag }}/${VERSION}/g' helmkbot/values.yaml
+             
+
+      - run: |
+          git config user.name github-action-bartaadalbert
+          git config usere.mail adalbertbarta@gmail.com
+          git commit -s -m "update version $VERSION"
+          git push
+          git tag $VERSION
+          git push --tags

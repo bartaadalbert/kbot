@@ -4,9 +4,13 @@
 
 replicaCount: 1
 
+chartVersion: 0.2.0
+
 image:
-  repository: adalbertbarta/kbot-linuxamd
-  tag: "v1.1.1"
+  registry: "ghcr.io"
+  repository: bartaadalbert/kbot
+  tag: "v1.1.10"
+  os: linux
   arch: amd64
 
 secret:
