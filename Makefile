@@ -28,7 +28,7 @@ OS ?= $(call to_lowercase,$(UNAME))
 
 TARGETARCH := amd64
 ARCH_SHORT_NAME := amd
-APP_FULL_NAME := $(APP)-$(OS)$(ARCH_SHORT_NAME)
+APP_FULL_NAME := $(APP)
 
 # OS types can be
 SUPPORTED_OS = linux darwin windows
