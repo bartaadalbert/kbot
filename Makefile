@@ -176,7 +176,7 @@ imagearm%:## Build the Docker image for the OS type, use like imagearmlinux imag
 
 push: ##Push the Docker image for the specified OS type
 	@printf $(_INFO) "Start pushing your docker image with registry and nameversion: $(REGISTRY)/$(APP_FULL_NAME):$(VERSION) !\n"
-	@docker push $(REGISTRY)/$(APP_FULL_NAME):$(VERSION)
+	@docker push $(REGISTRY)/$(APP):$(VERSION)-$(OS)$(ARCH_SHORT_NAME) 
 	@printf $(_SUCCESS) "Your image was Successfully pushed!\n"
 
 push_check:## Push the Docker image for the specified OS type with user check
