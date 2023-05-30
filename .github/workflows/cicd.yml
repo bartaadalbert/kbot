@@ -61,8 +61,8 @@ jobs:
  
       - name: Increment version
         run: |
-          # Read version from helmkbot/values.yaml
-          CVERSION=$(yq e '.chartVersion' helmkbot/values.yaml)
+          # Read version from helm/values.yaml
+          CVERSION=$(yq e '.chartVersion' helm/values.yaml)
           
           # Split into major, minor and patch
           MAJOR_VERSION=$(echo $CVERSION | cut -d. -f1)
@@ -73,11 +73,11 @@ jobs:
           NEW_VERSION="${MAJOR_VERSION}.$((MINOR_VERSION + 1)).${PATCH_VERSION}"
           
           # Update values.yaml with new version
-          yq e -i ".chartVersion = \"$NEW_VERSION\"" helmkbot/values.yaml
+          yq e -i ".chartVersion = \"$NEW_VERSION\"" helm/values.yaml
         
       - name: Modify values.yaml
         run: |
-          yq e -i ".image.tag = \"${{ env.VERSION }}\"" helmkbot/values.yaml
+          yq e -i ".image.tag = \"${{ env.VERSION }}\"" helm/values.yaml
 
       #GIT TOKEN NEW VALUE RW
       - run: |
