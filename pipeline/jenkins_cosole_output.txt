@@ -1,0 +1,218 @@
+Started by user Jenkins Admin
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on agent in /tmp/workspace/kbot
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (clone)
+[Pipeline] echo
+Clone repo
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+Fetching changes from the remote Git repository
+Checking out Revision 2cde1ad8ae97d60660850af9b95fadebbfa8872a (refs/remotes/origin/main)
+Commit message: "update version v1.1.12-0ac0a7a"
+ > git rev-parse --resolve-git-dir /tmp/workspace/kbot/.git # timeout=10
+ > git config remote.origin.url https://github.com/bartaadalbert/kbot # timeout=10
+Fetching upstream changes from https://github.com/bartaadalbert/kbot
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+ > git fetch --tags --force --progress -- https://github.com/bartaadalbert/kbot +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 2cde1ad8ae97d60660850af9b95fadebbfa8872a # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D main # timeout=10
+ > git checkout -b main 2cde1ad8ae97d60660850af9b95fadebbfa8872a # timeout=10
+ > git rev-list --no-walk 2cde1ad8ae97d60660850af9b95fadebbfa8872a # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (test)
+[Pipeline] echo
+run test
+[Pipeline] sh
++ make test
+=== RUN   TestAddition
+--- PASS: TestAddition (0.00s)
+=== RUN   TestSubtraction
+--- PASS: TestSubtraction (0.00s)
+PASS
+coverage: 0.0% of statements
+ok  	github.com/bartaadalbert/kbot	(cached)	coverage: 0.0% of statements
+?   	github.com/bartaadalbert/kbot/cmd	[no test files]
+[32m[Tests was passed, OK][0m 
+
+
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (build)
+[Pipeline] echo
+Build
+[Pipeline] sh
++ make build
+=== RUN   TestAddition
+--- PASS: TestAddition (0.00s)
+=== RUN   TestSubtraction
+--- PASS: TestSubtraction (0.00s)
+PASS
+coverage: 0.0% of statements
+ok  	github.com/bartaadalbert/kbot	(cached)	coverage: 0.0% of statements
+?   	github.com/bartaadalbert/kbot/cmd	[no test files]
+[32m[Tests was passed, OK][0m 
+
+
+[32m[Builder for linux architecture amd64][0m 
+[93m[-----------START BUILD-----------][0m 
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build  -v  -o kbot -ldflags "-s -w"
+[93m[-----------END BUILD-----------][0m 
+[32m[Successfully built kbot for linux with architecture amd64\n][0m 
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (image)
+[Pipeline] echo
+Create docker image
+[Pipeline] sh
++ make image
+#2 [internal] load .dockerignore
+#2 sha256:9d8eda541a7cbf4484093f8e0e4126047c8fe45159fbc5a5411860b2432a2619
+#2 transferring context: 110B done
+#2 DONE 0.0s
+
+#1 [internal] load build definition from Dockerfile
+#1 sha256:ff3b14d7bf1e8c9010ca310ae7d578831892394fd49510bae7011fd037505c10
+#1 transferring dockerfile: 374B done
+#1 DONE 0.0s
+
+#4 [internal] load metadata for quay.io/projectquay/golang:1.20
+#4 sha256:3c9418ca746179721240ec4919a75af7f3d313ebc2cfbe1602cd0e4b539e8d5c
+#4 DONE 0.4s
+
+#3 [internal] load metadata for docker.io/library/alpine:latest
+#3 sha256:d4fb25f5b5c00defc20ce26f2efc4e288de8834ed5aa59dff877b495ba88fda6
+#3 DONE 0.6s
+
+#11 [builder 1/4] FROM quay.io/projectquay/golang:1.20@sha256:560585b8c25399898221d10d1e6a3511280237ae7acadc2e9a9983a2d2efa65f
+#11 sha256:450833aeacb2af630cb733589d7c76dc7afd7b3a6b27ad1086f68c20a11ed725
+#11 DONE 0.0s
+
+#10 [builder 2/4] WORKDIR /go/src/app
+#10 sha256:069cb3a1dd33eccf699556a95863c890d8c09aabacb3ac82ed2008d868459063
+#10 CACHED
+
+#5 FROM docker.io/library/alpine:latest@sha256:02bb6f428431fbc2809c5d1b41eab5a68350194fb508869a33cb1af4444c9b11
+#5 sha256:a669a94daa88e065c0d09167b83028997bc1dabd1a869eeeab04326e10e9e0b3
+#5 CACHED
+
+#9 [internal] load build context
+#9 sha256:5c0cae4c5857253b91c6415ef758fbc17a8a0441a18218767726758e76641f5c
+#9 transferring context: 8.75kB done
+#9 DONE 0.0s
+
+#8 [builder 3/4] COPY . .
+#8 sha256:02bc62ba31e432b34b14df3e6ee126b96cd680f3cf8a2c7d445bfe4d01d2d4a7
+#8 DONE 0.1s
+
+#7 [builder 4/4] RUN make amdlinux
+#7 sha256:27ba91b24654c1b3cea763bb49d602561fa22e5f9346c140afc6091e2a5b8bd6
+#7 0.322 [32m[Successfully start build amd64 linux][0m 
+#7 0.323 make[1]: Entering directory '/go/src/app'
+#7 0.344 make[2]: Entering directory '/go/src/app'
+#7 0.383 go: downloading gopkg.in/telebot.v3 v3.1.3
+#7 0.383 go: downloading github.com/spf13/cobra v1.7.0
+#7 0.510 go: downloading github.com/spf13/pflag v1.0.5
+#7 12.25 ?   	github.com/bartaadalbert/kbot/cmd	[no test files]
+#7 12.26 === RUN   TestAddition
+#7 12.26 --- PASS: TestAddition (0.00s)
+#7 12.26 === RUN   TestSubtraction
+#7 12.26 --- PASS: TestSubtraction (0.00s)
+#7 12.26 PASS
+#7 12.26 	github.com/bartaadalbert/kbot	coverage: 0.0% of statements
+#7 12.26 ok  	github.com/bartaadalbert/kbot	0.006s	coverage: 0.0% of statements
+#7 12.32 [32m[Tests was passed, OK][0m 
+#7 12.32 \n
+#7 12.32 [32m[Builder for linux architecture amd64][0m 
+#7 12.93 go: downloading github.com/inconshreveable/mousetrap v1.1.0
+#7 12.99 [93m[-----------START BUILD-----------][0m 
+#7 12.99 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build  -v  -o kbot -ldflags "-s -w"
+#7 13.12 crypto/sha1
+#7 13.13 net
+#7 14.05 vendor/golang.org/x/net/http/httpproxy
+#7 14.05 net/textproto
+#7 14.05 crypto/x509
+#7 14.05 github.com/spf13/pflag
+#7 14.13 mime/multipart
+#7 14.13 vendor/golang.org/x/net/http/httpguts
+#7 14.52 crypto/tls
+#7 14.56 github.com/spf13/cobra
+#7 15.40 net/http/httptrace
+#7 15.46 net/http
+#7 17.20 gopkg.in/telebot.v3
+#7 17.68 github.com/bartaadalbert/kbot/cmd
+#7 17.73 github.com/bartaadalbert/kbot
+#7 18.06 [93m[-----------END BUILD-----------][0m 
+#7 18.06 [32m[Successfully built kbot for linux with architecture amd64\n][0m 
+#7 18.06 make[2]: Leaving directory '/go/src/app'
+#7 18.06 make[1]: Leaving directory '/go/src/app'
+#7 DONE 18.3s
+
+#6 [stage-1 1/3] COPY --from=builder /go/src/app/kbot ./toTestAPP
+#6 sha256:3429219bda2b8db4aaabfd874237f39422ea4dbfea1f8161228bab58b73bed93
+#6 DONE 0.1s
+
+#12 [stage-1 2/3] COPY --from=alpine:latest /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+#12 sha256:3a12d43e182f4533f740be0e8e90c157a78f0bd7f92edadbe74a8aa4095cdc9b
+#12 DONE 0.1s
+
+#13 exporting to image
+#13 sha256:bab1431ce00ca6ac8ad90b327c1d8b3d564eeda4ddf20be145f49ffd7d6cde07
+#13 exporting layers 0.1s done
+#13 writing image sha256:83bfbf77b8d1254e18c9a94c13d601424d57998df9b4cd1803dfe1dd22671f4e done
+#13 naming to docker.io/adalbertbarta/kbot:v1.1.12-linux-amd64 done
+#13 DONE 0.1s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (push)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withDockerRegistry
+$ docker login -u adalbertbarta -p ******** https://index.docker.io/v1/
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+WARNING! Your password will be stored unencrypted in /tmp/workspace/kbot@tmp/8b6a6675-4143-4c3e-b47b-39c0d863d5cb/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[Pipeline] {
+[Pipeline] sh
++ make push
+[1;34m[Start pushing your docker image with registry and nameversion: adalbertbarta/kbot:v1.1.12-linux-amd64  !\n][0m 
+The push refers to repository [docker.io/adalbertbarta/kbot]
+dbe689ae19f3: Preparing
+ae081ca44f9d: Preparing
+dbe689ae19f3: Pushed
+ae081ca44f9d: Pushed
+v1.1.12-linux-amd64: digest: sha256:65c4813f0724c95d312fc23bb8dbefbadd3c54aea7d6d1e22a5e60c6b373464a size: 738
+[32m[Your image was Successfully pushed!\n][0m 
+[Pipeline] }
+[Pipeline] // withDockerRegistry
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
