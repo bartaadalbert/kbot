@@ -76,7 +76,7 @@ to quickly create a Cobra application.`,
 			}
 
 			//Make arrays of handle text from user
-			helloArray := strings.Split("hi,hello,hey,szia,mizu,привіт,здравствуйте,здрастуйте,privet,zdrastvuy,zdrastvuyte", ",")
+			helloArray := strings.Split("hi,hello,hey,mizu,привіт,здравствуйте,здрастуйте,privet,zdrastvuy,zdrastvuyte", ",")
 			timeArray := strings.Split("time,now,час,data,teper,koli,Яка година,година,Дата", ",")
 			helpArray := strings.Split("help,support,допомога,підтримка,suport,dopomoha,pomozi meni,sco robiti,what to do,how,i cant", ",")
 			greatingsArray := strings.Split("thanx,thx,ok,thank you,by,poka,dyakuyu,thanks,thank,Дякую,Пока", ",")
