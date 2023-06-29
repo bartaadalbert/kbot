@@ -4,8 +4,8 @@
 replicaCount: 2
 chartVersion: 0.10.0
 image:
-  registry: ghcr.io/bartaadalbert/kbot
-  # repository: bartaadalbert/kbot
+  # registry: ghcr.io/bartaadalbert/kbot
+  repository: ghcr.io/bartaadalbert/kbot
   tag: v1.1.12-7b70271-linux-amd64
   os: linux
   arch: amd64
