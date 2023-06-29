@@ -13,7 +13,7 @@ secret:
   envName: TELE_TOKEN
   tokenName: kbot
   tokenKey: telegramToken
-  tokenKeyValue: 12345678:AAEAKIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+  tokenKeyValue: 12345678:AAEAKIIIIIIIIIIIIIIIIIIIIIIIIIIIIIITOKEN
 autoscaling:
   enabled: false
 serviceAccount:
