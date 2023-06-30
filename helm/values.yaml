@@ -2,11 +2,11 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 replicaCount: 2
-chartVersion: 0.13.0
+chartVersion: 0.14.0
 image:
   # registry: ghcr.io/bartaadalbert/kbot
   repository: ghcr.io/bartaadalbert/kbot
-  tag: v1.1.12-7b70271-linux-amd64
+  tag: v1.1.12-8701a4a-linux-amd64
   os: linux
   arch: amd64
 secret:
