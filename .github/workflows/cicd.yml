@@ -61,8 +61,8 @@ jobs:
  
       - name: Increment version
         run: |
-          # Read version from helm/values.yaml
-          CVERSION=$(yq e '.chartVersion' helm/values.yaml)
+          # Read version from helm/Chart.yaml
+          CVERSION=$(yq e '.version' helm/Chart.yaml)
           
           # Split into major, minor and patch
           MAJOR_VERSION=$(echo $CVERSION | cut -d. -f1)
@@ -74,6 +74,7 @@ jobs:
           
           # Update values.yaml with new version
           yq e -i ".chartVersion = \"$NEW_VERSION\"" helm/values.yaml
+          yq e -i ".version = \"$NEW_VERSION\"" helm/Chart.yaml
         
       - name: Modify values.yaml
         run: |

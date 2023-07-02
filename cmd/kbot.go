@@ -69,7 +69,7 @@ to quickly create a Cobra application.`,
 
 			//commands for bot usage are handeled here
 			validCommands := map[string]string{
-				"hello": "Hello %s!, I am kbot!",
+				"hello": "Hello %s!, I am kbot! my version is %s",
 				"time":  "The current time in your timezone is %s",
 				"help":  "I am here to assist you with limited commands %s",
 				"thx":   "Have a nice day, I was glad to help you.",
@@ -107,7 +107,7 @@ to quickly create a Cobra application.`,
 				// Check matches any of the elements in the hello array
 				for _, v := range helloArray {
 					if strings.Contains(strings.ToLower(m.Text()), v) {
-						return m.Send(fmt.Sprintf(validCommands["hello"], m.Sender().FirstName))
+						return m.Send(fmt.Sprintf(validCommands["hello"], m.Sender().FirstName, appVersion))
 					}
 				}
 				// Check matches any of the elements in the help array

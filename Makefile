@@ -16,12 +16,12 @@ GIT_PATH := $(shell git remote get-url origin | sed 's/.*github.com\//github.com
 to_lowercase = $(shell echo $(1) | tr A-Z a-z)
 
 #Version get
-VERSION := $(shell git describe --tags --abbrev=0 2>/dev/null || echo "unknown-$(shell date +%s)")
+# VERSION := $(shell git describe --tags --abbrev=0 2>/dev/null || echo "unknown-$(shell date +%s)")
+VERSION := $(shell git describe --tags --abbrev=0 2>/dev/null || echo "unknown-$(shell date +%s)")-$(shell git rev-parse --short HEAD)
 
 LDFLAGS_SET_VALUE := cmd.appVersion
-# LDFLAGS := -X $(GIT_PATH)/$(LDFLAGS_SET_VALUE)=$(VERSION)
-LDFLAGS := "-s -w"
-
+LDFLAGS := "-X $(GIT_PATH)/$(LDFLAGS_SET_VALUE)=$(VERSION)"
+# LDFLAGS := "-s -w"
 # default OS typew
 UNAME := $(shell uname -s 2>/dev/null || echo "linux")
 OS ?= $(call to_lowercase,$(UNAME))
@@ -69,6 +69,9 @@ help: ##Help
 # Default target to print settings
 .DEFAULT_GOAL := help
 
+format:
+	gofmt -s -w ./
+
 test: ## Check test or kode errors
 	@if ! go test -v -cover ./...; then \
 		printf $(_DANGER) "Tests failed,build stopp"; \
@@ -77,7 +80,7 @@ test: ## Check test or kode errors
 	@printf $(_SUCCESS) "Tests was passed, OK"
 	@echo "\n"
 
-build: test ## Build the binary for OS type
+build: format test ## Build the binary for OS type
 	@printf $(_SUCCESS) "Builder for $(OS) architecture $(TARGETARCH)"
 	@go get ./...
 	@printf $(_ATTAINTION) "-----------START BUILD-----------"
