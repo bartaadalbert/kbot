@@ -86,7 +86,7 @@ to quickly create a Cobra application.`,
 
 			switch text {
 			case "/start":
-				return m.Send(fmt.Sprintf("Hello, %s! I am kbot! What can i help you", m.Sender().FirstName))
+				return m.Send(fmt.Sprintf("Hello, %s! I am TOMkbot! What can i help you", m.Sender().FirstName))
 
 			default:
 				// Check matches any of the elements in the time array
