@@ -58,7 +58,7 @@ jobs:
         with:
           fetch-depth: 0
       - run: echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
- 
+
       - name: Increment version
         run: |
           # Read version from helm/Chart.yaml
@@ -71,14 +71,19 @@ jobs:
           
           # Increment minor version
           NEW_VERSION="${MAJOR_VERSION}.$((MINOR_VERSION + 1)).${PATCH_VERSION}"
-          
+
           # Update values.yaml with new version
           yq e -i ".chartVersion = \"$NEW_VERSION\"" helm/values.yaml
           yq e -i ".version = \"$NEW_VERSION\"" helm/Chart.yaml
         
       - name: Modify values.yaml
         run: |
-          yq e -i ".image.tag = \"${{ env.VERSION }}\"" helm/values.yaml
+          # Set OS and ARCH variables
+          OS=$([[ "${{ matrix.os }}" == "windows" ]] && echo "windows" || echo "linux")
+          ARCH="amd64"
+
+          # Update values.yaml with version including OS and ARCH
+          yq e -i ".image.tag = \"${{ env.VERSION }}-$OS-$ARCH\"" helm/values.yaml
 
       #GIT TOKEN NEW VALUE RW
       - run: |
