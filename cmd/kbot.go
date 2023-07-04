@@ -69,7 +69,7 @@ to quickly create a Cobra application.`,
 
 			//commands for bot usage are handeled here
 			validCommands := map[string]string{
-				"hello": "Hello %s!, I am kbot REPLICA! my version is %s",
+				"hello": "Hello %s!, I am kbot REPLICA tom zseka! my version is %s",
 				"time":  "The current time in your timezone is %s",
 				"help":  "I am here to assist you with limited commands %s",
 				"thx":   "Have a nice day, I was glad to help you.",
